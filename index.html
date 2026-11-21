@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RANDI CAFE - Menu Digital & Order</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>☕</text></svg>">
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="index.html" class="brand-logo">
+        <div class="brand-icon">☕</div>
+        <div class="brand-text">
+          <h1>RANDI CAFE</h1>
+          <p>Artisan Coffee & Kitchen</p>
+        </div>
+      </a>
+      <div class="nav-actions">
+        <a href="admin.html" class="nav-btn">
+          <span>⚡</span>
+          <span>Portal Admin</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-banner">
+        <div class="hero-tag">✦ Premium Experience</div>
+        <h2 class="hero-title">Nikmati Racikan Istimewa & Santapan Terbaik</h2>
+        <p class="hero-desc">Pilih menu favorit Anda dari meja, tambahkan pesanan dengan mudah, dan hidangan akan langsung disiapkan segar dari dapur kami.</p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-num">16+</span>
+            <span class="stat-label">Pilihan Menu</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">Bahan Premium</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">&lt; 15 Mnt</span>
+            <span class="stat-label">Estimasi Sajian</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sticky Filter Bar -->
+  <div class="filter-wrapper">
+    <div class="container filter-bar">
+      <div class="category-scroll" id="categoryContainer">
+        <button class="cat-chip active" data-category="Semua">Semua Menu</button>
+        <button class="cat-chip" data-category="Coffee">Coffee</button>
+        <button class="cat-chip" data-category="Non-Coffee">Non-Coffee</button>
+        <button class="cat-chip" data-category="Tea & Mocktail">Tea & Mocktail</button>
+        <button class="cat-chip" data-category="Main Course">Makanan Berat</button>
+        <button class="cat-chip" data-category="Snack">Snack & Pastry</button>
+      </div>
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" class="search-input" placeholder="Cari kopi, pasta, pastry...">
+      </div>
+    </div>
+  </div>
+
+  <!-- Menu Section -->
+  <main class="container">
+    <div class="menu-grid" id="menuGrid">
+      <!-- Generated via JavaScript -->
+    </div>
+  </main>
+
+  <!-- Floating Cart Bar -->
+  <div class="cart-floating-bar" id="cartBar">
+    <div class="cart-summary">
+      <div class="cart-icon-wrap">
+        🛒
+        <span class="cart-badge" id="cartItemCount">0</span>
+      </div>
+      <div class="cart-info-text">
+        <span class="cart-count-label" id="cartLabelText">0 item terpilih</span>
+        <span class="cart-total-price" id="cartTotalPrice">Rp 0</span>
+      </div>
+    </div>
+    <button class="cart-open-btn" id="openCartBtn">
+      <span>Lihat Pesanan</span>
+      <span>→</span>
+    </button>
+  </div>
+
+  <!-- Cart & Checkout Modal -->
+  <div class="modal-overlay" id="cartModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 class="modal-title">Pesanan Anda</h3>
+        <button class="close-btn" id="closeCartBtn">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="cart-items-list" id="cartItemsList">
+          <!-- Cart items rendered here -->
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="customerNameInput">Nama Pemesan *</label>
+          <input type="text" id="customerNameInput" class="form-input" placeholder="Contoh: Budi / Anita" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="tableSelect">Pilih Nomor Meja *</label>
+          <select id="tableSelect" class="form-select">
+            <option value="Meja 01">Meja 01 (Indoor Area)</option>
+            <option value="Meja 02">Meja 02 (Indoor Area)</option>
+            <option value="Meja 03">Meja 03 (Indoor Area)</option>
+            <option value="Meja 04">Meja 04 (Indoor Area)</option>
+            <option value="Meja 05">Meja 05 (Indoor Area)</option>
+            <option value="Meja 06">Meja 06 (Outdoor Garden)</option>
+            <option value="Meja 07">Meja 07 (Outdoor Garden)</option>
+            <option value="Meja 08">Meja 08 (Outdoor Garden)</option>
+            <option value="Meja 09">Meja 09 (Outdoor Garden)</option>
+            <option value="Meja 10">Meja 10 (Outdoor Garden)</option>
+            <option value="Takeaway">Bungkus / Takeaway</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="orderNotes">Catatan Khusus (Opsional)</label>
+          <textarea id="orderNotes" class="form-textarea" rows="2" placeholder="Contoh: Less sugar, es sedikit, sambal dipisah..."></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <div class="checkout-summary-row">
+          <span>Subtotal Pesanan</span>
+          <span id="modalSubtotal">Rp 0</span>
+        </div>
+        <div class="checkout-total-row">
+          <span>Total Pembayaran</span>
+          <span id="modalTotal">Rp 0</span>
+        </div>
+        <button class="btn-block" id="submitOrderBtn">Kirim Pesanan ke Dapur 🚀</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Success Modal -->
+  <div class="modal-overlay" id="successModal">
+    <div class="modal-card" style="text-align: center; padding: 36px 24px;">
+      <div style="font-size: 54px; margin-bottom: 12px; animation: pulseGlow 2s infinite;">☕✨</div>
+      <h3 class="modal-title" style="margin-bottom: 8px;">Pesanan Berhasil Terkirim!</h3>
+      <p style="color: var(--text-secondary); font-size: 14px; margin-bottom: 20px;">
+        Pesanan Anda telah langsung masuk ke layar Kasir & Dapur RANDI CAFE.
+      </p>
+      <div style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 16px; margin-bottom: 24px;">
+        <div style="font-size: 12px; color: var(--text-muted); text-transform: uppercase;">Nomor Pesanan</div>
+        <div style="font-family: var(--font-display); font-size: 26px; font-weight: 700; color: #ffffff;" id="successOrderId">#RC-0000</div>
+        <div style="font-size: 13px; color: var(--accent-emerald); font-weight: 600; margin-top: 6px;">● Status: Sedang Disiapkan</div>
+      </div>
+      <button class="btn-block" id="closeSuccessBtn">Pesan Menu Tambahan</button>
+    </div>
+  </div>
+
+  <!-- Core Scripts -->
+  <script src="app.js"></script>
+  <script>
+    const { Store, formatRupiah, showToast } = window.RANDICAFE;
+
+    let currentCategory = 'Semua';
+    let searchQuery = '';
+    let cart = Store.getCart();
+
+    // DOM Elements
+    const menuGrid = document.getElementById('menuGrid');
+    const categoryChips = document.querySelectorAll('.cat-chip');
+    const searchInput = document.getElementById('searchInput');
+    const cartBar = document.getElementById('cartBar');
+    const cartItemCount = document.getElementById('cartItemCount');
+    const cartLabelText = document.getElementById('cartLabelText');
+    const cartTotalPrice = document.getElementById('cartTotalPrice');
+    const openCartBtn = document.getElementById('openCartBtn');
+    const closeCartBtn = document.getElementById('closeCartBtn');
+    const cartModal = document.getElementById('cartModal');
+    const cartItemsList = document.getElementById('cartItemsList');
+    const modalSubtotal = document.getElementById('modalSubtotal');
+    const modalTotal = document.getElementById('modalTotal');
+    const submitOrderBtn = document.getElementById('submitOrderBtn');
+    const successModal = document.getElementById('successModal');
+    const successOrderId = document.getElementById('successOrderId');
+    const closeSuccessBtn = document.getElementById('closeSuccessBtn');
+
+    // Render Menu Cards
+    function renderMenu() {
+      const allMenus = Store.getMenus();
+      const filtered = allMenus.filter(item => {
+        const matchesCategory = currentCategory === 'Semua' || item.category === currentCategory;
+        const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                              item.desc.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCategory && matchesSearch && item.available;
+      });
+
+      if (filtered.length === 0) {
+        menuGrid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--text-muted);">
+            <div style="font-size: 40px; margin-bottom: 12px;">🔍</div>
+            <h3>Menu tidak ditemukan</h3>
+            <p>Coba gunakan kata kunci pencarian lain atau pilih kategori lain.</p>
+          </div>
+        `;
+        return;
+      }
+
+      menuGrid.innerHTML = filtered.map(item => `
+        <div class="menu-card" data-id="${item.id}">
+          <div class="menu-image-container">
+            <img src="${item.image}" alt="${item.name}" class="menu-img" loading="lazy">
+            ${item.badge ? `<span class="menu-badge ${item.badge.toLowerCase()}">${item.badge}</span>` : ''}
+            <span class="menu-category-tag">${item.category}</span>
+          </div>
+          <div class="menu-content">
+            <h3 class="menu-name">${item.name}</h3>
+            <p class="menu-desc">${item.desc}</p>
+            <div class="menu-footer">
+              <span class="menu-price">${formatRupiah(item.price)}</span>
+              <button class="add-btn" onclick="addToCart(${item.id})">
+                <span>+</span>
+                <span>Pesan</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Add to Cart
+    window.addToCart = function(menuId) {
+      const allMenus = Store.getMenus();
+      const item = allMenus.find(m => m.id === menuId);
+      if (!item) return;
+
+      const existing = cart.find(c => c.id === menuId);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          category: item.category,
+          image: item.image,
+          quantity: 1
+        });
+      }
+      Store.saveCart(cart);
+      updateCartUI();
+      showToast(`+1 ${item.name} ditambahkan`, '☕');
+    };
+
+    // Update Cart UI
+    function updateCartUI() {
+      const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+      const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+      cartItemCount.textContent = totalCount;
+      cartLabelText.textContent = `${totalCount} item pesanan`;
+      cartTotalPrice.textContent = formatRupiah(totalPrice);
+      modalSubtotal.textContent = formatRupiah(totalPrice);
+      modalTotal.textContent = formatRupiah(totalPrice);
+
+      if (totalCount > 0) {
+        cartBar.classList.add('active');
+      } else {
+        cartBar.classList.remove('active');
+        cartModal.classList.remove('open');
+      }
+
+      renderCartItems();
+    }
+
+    // Render Cart Drawer
+    function renderCartItems() {
+      if (cart.length === 0) {
+        cartItemsList.innerHTML = `<p style="text-align: center; color: var(--text-muted); padding: 20px;">Keranjang Anda masih kosong.</p>`;
+        return;
+      }
+
+      cartItemsList.innerHTML = cart.map(item => `
+        <div class="cart-item-row">
+          <div class="item-left">
+            <img src="${item.image}" class="item-thumb" alt="${item.name}">
+            <div class="item-meta">
+              <h4>${item.name}</h4>
+              <p>${formatRupiah(item.price)}</p>
+            </div>
+          </div>
+          <div class="quantity-controls">
+            <button class="qty-btn" onclick="adjustQty(${item.id}, -1)">−</button>
+            <span class="qty-num">${item.quantity}</span>
+            <button class="qty-btn" onclick="adjustQty(${item.id}, 1)">+</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Adjust Quantity
+    window.adjustQty = function(id, delta) {
+      const index = cart.findIndex(c => c.id === id);
+      if (index === -1) return;
+
+      cart[index].quantity += delta;
+      if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+      }
+      Store.saveCart(cart);
+      updateCartUI();
+    };
+
+    // Filter Events
+    categoryChips.forEach(chip => {
+      chip.addEventListener('click', () => {
+        categoryChips.forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentCategory = chip.dataset.category;
+        renderMenu();
+      });
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.trim();
+      renderMenu();
+    });
+
+    // Cart Modal open/close
+    openCartBtn.addEventListener('click', () => cartModal.classList.add('open'));
+    closeCartBtn.addEventListener('click', () => cartModal.classList.remove('open'));
+
+    // Submit Order
+    submitOrderBtn.addEventListener('click', () => {
+      const name = document.getElementById('customerNameInput').value.trim();
+      const table = document.getElementById('tableSelect').value;
+      const note = document.getElementById('orderNotes').value.trim();
+
+      if (!name) {
+        alert('Mohon isi nama Anda terlebih dahulu.');
+        document.getElementById('customerNameInput').focus();
+        return;
+      }
+
+      if (cart.length === 0) {
+        alert('Pilih menu terlebih dahulu.');
+        return;
+      }
+
+      submitOrderBtn.disabled = true;
+      submitOrderBtn.textContent = 'Mengirim Pesanan...';
+
+      const orderNumber = 'RC-' + Math.floor(10000 + Math.random() * 90000);
+      const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+      const newOrder = {
+        id: orderNumber,
+        customerName: name,
+        tableNumber: table,
+        note: note,
+        items: [...cart],
+        total: totalPrice,
+        status: 'Baru',
+        createdAt: new Date().toISOString()
+      };
+
+      // Save order
+      Store.addOrder(newOrder);
+
+      setTimeout(() => {
+        // Reset Cart
+        cart = [];
+        Store.clearCart();
+        updateCartUI();
+        cartModal.classList.remove('open');
+
+        // Show Success
+        successOrderId.textContent = `#${orderNumber}`;
+        successModal.classList.add('open');
+
+        submitOrderBtn.disabled = false;
+        submitOrderBtn.textContent = 'Kirim Pesanan ke Dapur 🚀';
+      }, 500);
+    });
+
+    closeSuccessBtn.addEventListener('click', () => {
+      successModal.classList.remove('open');
+    });
+
+    // Initialize
+    renderMenu();
+    updateCartUI();
+  </script>
+</body>
+</html>
